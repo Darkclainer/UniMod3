@@ -1,6 +1,8 @@
 #include <windows.h>
 #include "sol.hpp"
 
+#include "unimod.h"
+
 BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 {
 
