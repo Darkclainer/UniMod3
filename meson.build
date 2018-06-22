@@ -18,7 +18,7 @@ sol2_dep = dependency('sol2',
 	static: true
 )
 
-src_raw = ['main.cpp', 'unimod.cpp']
+src_raw = ['main.cpp', 'unimod.cpp', 'config.cpp']
 src_prefix = 'src/'
 src = []
 foreach s : src_raw
