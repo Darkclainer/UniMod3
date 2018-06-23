@@ -3,6 +3,8 @@
 
 #include "sol.hpp"
 
+#include "config.h"
+
 class UniMod
 {
 public:
@@ -13,7 +15,10 @@ public:
 
 private:
 	static UniMod* instance;
-	UniMod() {}
+	UniMod();
+
+	Config config;
+
 };
 
 #endif//UNIMOD_23_07_18_H

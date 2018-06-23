@@ -12,3 +12,18 @@ UniMod* UniMod::getInstance()
 	}
 	return instance;
 }
+
+UniMod::UniMod()
+	:lua(), config(lua, "UniModConfig.lua")
+{
+
+	auto c = config.getOption<bool>("SomeRandomOption");
+	if (c)
+	{
+	
+	}
+	else
+	{
+
+	}
+}

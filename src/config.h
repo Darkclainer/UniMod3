@@ -25,7 +25,6 @@ private:
 
 private:
 	sol::environment options;
-	
 };
 
 #endif//CONFIG_23_07_18_H

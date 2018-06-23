@@ -19,7 +19,4 @@ Config::Config(sol::state& lua, const std::string& fileName)
 
 	if (!result.valid())
 		return; // ToDo: print error message!
-
-	auto b = getOption("DebugMode");
-	auto a = getOption<bool>("DebugMode");
 }

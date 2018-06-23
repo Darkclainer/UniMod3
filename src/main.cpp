@@ -8,13 +8,12 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 
 	if (reason == DLL_PROCESS_ATTACH)
 	{
-		sol::state lua;
-		int x = 0;
-		lua.set_function("beep", [&x] { ++x; });
-		lua.script("beep()");
+		UniMod* unimod = UniMod::getInstance();
 	}
 	else if (reason == DLL_PROCESS_DETACH)
 	{
+		UniMod* unimod = UniMod::getInstance();
+		delete unimod;
 	}
 
 	return 1;
