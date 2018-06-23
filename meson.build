@@ -31,16 +31,20 @@ UniMod3 = shared_library('UniMod3',
 	dependencies: [sol2_dep]
 )
 
+# file to copy into Nox Dir
+copied_files = [
+	UniMod3.full_path(),
+	UniModLoader.full_path(),
+	meson.source_root() + '/lua_files/UniModConfig.lua'
+]
+
 # hack for copy dlls file to Nox Dir
 nox_dir = get_option('nox_dir')
 if nox_dir != ''
 	filecopier = find_program('filecopier.py')
+	command = [filecopier] + [nox_dir] + copied_files
 	run_target('UniMod3_Copy',
-		command : [filecopier, 
-			nox_dir,
-			UniMod3.full_path(), 
-			UniModLoader.full_path()
-		],
+		command : command,
 		depends: [UniModLoader, UniMod3]
 	)
 
