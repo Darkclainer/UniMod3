@@ -1,23 +1,25 @@
 #include "sol.hpp"
 #include "config.h"
 
-static void setDefaultOptions(Config::Options& options)
+void Config::setDefaultOptions(sol::table& options)
 {
-	static Config::Options defaultOptions = {
-		{"DebugMode", "false"},
-		{"MultipleNoxInstances", "false"}
-	};
-	options = defaultOptions;
+	options.set(
+		"DebugMode", false,
+		"MultipleNoxInstances", false
+	);
 }
 Config::Config(sol::state& lua, const std::string& fileName)
+	:options(lua, sol::create)
 {
 	// set default options
 	setDefaultOptions(options);
 
-	// set temporary environment
+	// load and execute file with options table as environment
+	sol::protected_function_result result = lua.safe_script_file(fileName, options, sol::load_mode::text);
 
+	if (!result.valid())
+		return; // ToDo: print error message!
 
-	// load and execute file
-	// get options from temporary environment
-	auto loadResult = lua.load_file(fileName, sol::load_mode::text);
+	auto b = getOption("DebugMode");
+	auto a = getOption<bool>("DebugMode");
 }

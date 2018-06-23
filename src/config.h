@@ -10,9 +10,21 @@ class Config
 public:
 	Config(sol::state& lua, const std::string& fileName);
 
-	using Options = std::map<std::string, std::string>;
+	decltype(auto) getOption(const std::string& optionName)
+	{
+		return options[optionName];
+	}
+	
+	template<class T>
+	sol::optional<T> getOption(const std::string& optionName)
+	{
+		return options[optionName];
+	}
 private:
-	Options options;
+	void setDefaultOptions(sol::table& options);
+
+private:
+	sol::environment options;
 	
 };
 
