@@ -1,9 +1,11 @@
 #include <windows.h>
+#include <exception>
 #include "sol.hpp"
 
 #include "unimod.h"
 
 BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
+try
 {
 
 	if (reason == DLL_PROCESS_ATTACH)
@@ -17,4 +19,11 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 	}
 
 	return 1;
+}
+catch (std::exception& e)
+{
+	e.what();
+}
+catch (...)
+{
 }

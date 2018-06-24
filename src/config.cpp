@@ -15,8 +15,13 @@ Config::Config(sol::state& lua, const std::string& fileName)
 	setDefaultOptions(options);
 
 	// load and execute file with options table as environment
-	sol::protected_function_result result = lua.safe_script_file(fileName, options, sol::load_mode::text);
+	try
+	{
+		sol::protected_function_result result = lua.safe_script_file(fileName, options, sol::load_mode::text);
+	}
+	catch (sol::error& e)
+	{
+		// ToDo: print error message!
+	}
 
-	if (!result.valid())
-		return; // ToDo: print error message!
 }

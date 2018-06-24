@@ -8,7 +8,7 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 
 	if (reason == DLL_PROCESS_ATTACH)
 	{
-		hUniMod = LoadLibrary(".\\UniMod3.dll");
+		hUniMod = LoadLibrary("UniMod3.dll");
 	}
 	else if (reason == DLL_PROCESS_DETACH)
 	{
