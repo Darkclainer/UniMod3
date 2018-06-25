@@ -1,1 +1,2 @@
 option('nox_dir', type: 'string', value: '', description: 'Path to Nox directory')
+option('nox_exe', type: 'string', value: 'Nox.exe', description: 'Name of Nox executable in Nox\'s directory')

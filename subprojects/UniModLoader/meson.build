@@ -9,7 +9,12 @@ if compiler.get_id() != 'msvc'
 	error('Regard to platform specific project purpose only msvc compiler supported!')
 endif
 
-UniModLoader = shared_library('dinput', 
+UniModLoader_lib = shared_library('dinput', 
 	sources: ['main.cpp'],
+)
+
+# phony dependency
+UniModLoader_dep = declare_dependency(
+	link_with: [UniModLoader_lib]	
 )
 

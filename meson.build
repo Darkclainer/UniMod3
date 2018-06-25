@@ -10,7 +10,9 @@ if compiler.get_id() != 'msvc'
 endif
 
 # build dll that load UniMod3.dll
-UniModLoader = subproject('UniModLoader').get_variable('UniModLoader')
+UniModLoader = subproject('UniModLoader')
+UniModLoader_lib = UniModLoader.get_variable('UniModLoader_lib')
+UniModLoader_dep = UniModLoader.get_variable('UniModLoader_dep')
 
 # get sol2 dependency
 sol2_dep = dependency('sol2', 
@@ -26,15 +28,15 @@ foreach s : src_raw
 endforeach
 
 
-UniMod3 = shared_library('UniMod3', 
+UniMod3_lib = shared_library('UniMod3', 
 	sources: src,
 	dependencies: [sol2_dep]
 )
 
 # file to copy into Nox Dir
 copied_files = [
-	UniMod3.full_path(),
-	UniModLoader.full_path(),
+	UniMod3_lib,#.full_path(),
+	UniModLoader_lib,#.full_path(),
 	meson.source_root() + '/lua_files/UniModConfig.lua'
 ]
 
@@ -43,9 +45,12 @@ nox_dir = get_option('nox_dir')
 if nox_dir != ''
 	filecopier = find_program('filecopier.py')
 	command = [filecopier] + [nox_dir] + copied_files
-	run_target('UniMod3_Copy',
-		command : command,
-		depends: [UniModLoader, UniMod3]
+	targetName = 'UniMod3_All'
+	run_target(targetName,
+		command : command
 	)
-
+	
+	userConfigurationCreator = find_program('userConfigurationCreator.py')
+	nox_exe = get_option('nox_exe')
+	run_command(userConfigurationCreator, targetName, meson.build_root(), nox_dir, nox_exe)
 endif
